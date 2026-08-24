@@ -11,7 +11,7 @@ async function LatestPosts() {
 export default async function Home() {
   return (
     <>
-      <h1>Welcome back!</h1>
+      <h1>Welcome back! test change</h1>
       <p>Here's what you might've missed.</p>
       <section id="latest-posts">
       <Suspense fallback={<p>Loading recent posts...</p>}>
