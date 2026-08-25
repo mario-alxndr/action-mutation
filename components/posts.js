@@ -1,4 +1,5 @@
-'use client'
+"use client";
+
 import { useOptimistic } from 'react';
 
 import { formatDate } from '@/lib/format';
@@ -23,7 +24,7 @@ function Post({ post, action }) {
             </p>
           </div>
           <div>
-            <form 
+            <form
               action={action.bind(null, post.id)}
               className={post.isLiked ? 'liked' : ''}
             >
@@ -39,7 +40,7 @@ function Post({ post, action }) {
 
 export default function Posts({ posts }) {
   const [optimisticPosts, updateOptimisticPosts] = useOptimistic(posts, (prevPosts, updatedPostId) => {
-    const updatedPostIndex = prevPosts.findIndex(post => post.id = updatedPostId);
+    const updatedPostIndex = prevPosts.findIndex(post => post.id === updatedPostId);
 
     if (updatedPostIndex === -1) {
       return prevPosts;
@@ -59,14 +60,14 @@ export default function Posts({ posts }) {
 
   async function updatePost(postId) {
     updateOptimisticPosts(postId);
-    await togglePostLikeStatus();
+    await togglePostLikeStatus(postId);
   }
 
   return (
     <ul className="posts">
-      {posts.map((post) => (
+      {optimisticPosts.map((post) => (
         <li key={post.id}>
-          <Post post={post} action={updatePost}/>
+          <Post post={post} action={updatePost} />
         </li>
       ))}
     </ul>
